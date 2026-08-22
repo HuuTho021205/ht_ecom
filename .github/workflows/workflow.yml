@@ -17,9 +17,9 @@ jobs:
       - name: Azure Login
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID_Ht_Ecom }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID_Ht_Ecom }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_Ht_Ecom }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID_HT_ECOM }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID_HT_ECOM }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID_HT_ECOM }}
 
       - name: login in to Azure registry
         run: az acr login --name htecomregistry
