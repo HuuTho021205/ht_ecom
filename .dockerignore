@@ -1,0 +1,39 @@
+# Maven build output
+target/
+bin/
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.settings/
+.classpath
+.project
+.metadata/
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Tests
+src/test/
+
+# Documentation
+README.md
+*.md
+docs/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.bak
+.DS_Store
