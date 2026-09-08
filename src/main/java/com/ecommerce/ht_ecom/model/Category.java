@@ -24,5 +24,6 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
-
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private List<Product> products;
 }

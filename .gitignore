@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+### Uploaded Media / Images ###
+images/*
+!images/.gitkeep
+
+### Logs & OS ###
+*.log
+.DS_Store
+Thumbs.db

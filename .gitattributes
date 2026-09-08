@@ -1,2 +1,12 @@
+# 1. Tự động chuẩn hóa kết thúc dòng cho tất cả các file mã nguồn (Java, XML, Properties...)
+* text=auto
+
+# 2. Các file chạy trên môi trường Linux / CI-CD / Docker -> Bắt buộc dùng LF
 /mvnw text eol=lf
+*.sh text eol=lf
+Dockerfile text eol=lf
+.github/** text eol=lf
+
+# 3. Các file chạy trên môi trường Windows -> Dùng CRLF
 *.cmd text eol=crlf
+*.bat text eol=crlf

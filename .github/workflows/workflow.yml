@@ -33,3 +33,4 @@ jobs:
           resourceGroup: Ht_ecom
           imageToBuild: htecomregistry.azurecr.io/ht-ecom-backend:${{ github.sha }}
 
+
