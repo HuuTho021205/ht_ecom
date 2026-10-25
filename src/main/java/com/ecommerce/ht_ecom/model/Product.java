@@ -4,26 +4,33 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
+
     @NotBlank
     @Size(min = 3, message = "Product name must contain at least 3 characters")
     private String productName;
+
     private String image;
+
     @NotBlank
-    @Size(min = 6, message = "Product name must contain at least 6 characters")
+    @Size(min = 6, message = "Product description must contain at least 6 characters")
     private String description;
+
     private Integer quantity;
     private BigDecimal price;
     private Integer discount;
@@ -32,4 +39,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private User user;
 }
