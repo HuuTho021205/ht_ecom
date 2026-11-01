@@ -11,7 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
 @Service
-public class FileServiceImpl implements FileService {
+public class FileImplService implements FileService {
     @Override
     public String uploadImage(String path, MultipartFile fileImage) throws IOException {
         // lấy tên file gốc vd my-iphone.png
