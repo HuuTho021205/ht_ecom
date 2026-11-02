@@ -1,14 +1,18 @@
 package com.ecommerce.ht_ecom.security.jwt;
 
+import com.ecommerce.ht_ecom.security.service.UserDetailsImpl;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.WebUtils;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -21,18 +25,38 @@ public class JwtUtils {
     @Value("${spring.app.jwtSecret}")
     private String jwtSecret;
     private SecretKey key;
+    @Value("${spring.app.jwtCookieName}")
+    private String jwtCookieName;
     @PostConstruct
     void init(){
         this.key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 
-    public String getTokenFromHeader(HttpServletRequest request){
-        String bearerToken = request.getHeader("Authorization");
-        if(bearerToken != null && bearerToken.startsWith("Bearer ")){
-            return bearerToken.substring(7);
+    public String getJwtFromCookie(HttpServletRequest request){
+        Cookie cookie = WebUtils.getCookie(request, jwtCookieName);
+        if(cookie != null){
+            return cookie.getValue();
         }
         return null;
     }
+
+    public ResponseCookie generateJwtCookie(UserDetailsImpl userDetails){
+        String jwt = generateTokenFromUsername(userDetails.getUsername());
+        return ResponseCookie.from(jwtCookieName,jwt)
+                .path("/api")
+                .maxAge(24 * 60 * 60)
+                .httpOnly(true)
+                .build();
+    }
+
+    public ResponseCookie cleanJwtCookie(){
+        return ResponseCookie.from(jwtCookieName,"")
+                .path("/api")
+                .maxAge(0)
+                .httpOnly(true)
+                .build();
+    }
+
     public String generateTokenFromUsername(String username){
         Date now = new Date();
         return Jwts.builder()
