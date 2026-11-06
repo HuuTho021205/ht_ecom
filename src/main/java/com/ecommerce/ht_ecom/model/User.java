@@ -29,13 +29,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
+
     @NotBlank
     @Size(max = 20)
     private String username;
+
     @NotBlank
     @Size(max = 50)
     @Email
     private String email;
+
     @NotBlank
     @Size(max = 120)
     private String password;
@@ -58,6 +61,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE},
         orphanRemoval = true)
     private Set<Product> products = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private Cart cart;
 
     public User(String username, String email, String password) {
         this.username = username;
